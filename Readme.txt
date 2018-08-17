@@ -14,6 +14,10 @@ Assumes the NiN codebase is checked out at numbers-into-notes/nin-thalassa-repo
 
 cd numbers-into-notes
 
+Clone the thalassa-version branch of NiN:
+
+git clone -b thalassa-version https://github.com/davidderoure/NumbersIntoNotes.git nin-thalassa-repo
+
 Build the numbersintonotes base image:
 
 docker build -t numbersintonotes-base:1 -f Dockerfile-base .
