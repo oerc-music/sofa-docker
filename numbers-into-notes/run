@@ -1,3 +1,14 @@
 #!/bin/sh
+
+# Check directories exist
+
+for d in mei meld midi ore pdf prov ; do
+  ls -ld /data/$d
+  if [ ! -d /data/$d ] ; then
+   mkdir /data/$d
+   chown www-data /data/$d
+  fi
+done
+
 # Start apache in foreground
 exec /usr/sbin/apache2ctl -D FOREGROUND
