@@ -2,11 +2,20 @@
 # GOLD LDP Container
 
 cd LDP-container
-docker build -t gold:20180615 .
+docker build -t gold:$(date -I) .
+
+export VER=$(date -I)
 
 To start up:
 
-docker run -p 8000:8000 --mount source=gold-data,target=/gold-data gold:20180615
+docker run -p 8000:8000 --mount source=gold-data,target=/gold-data gold:$VER
+
+Test GOLD (also without a POST it doesn't seem to setup storage)
+
+export LDPLOC=http://HOSTNAME:8000/
+
+curl -i -X POST -H "Content-Type: text/turtle" -H 'Link: <http://www.w3.org/ns/ldp#BasicContainer>; rel="type"' --data-raw "@prefix ldp: <http://www.w3.org/ns/ldp#> . <> a ldp:Container, ldp:BasicContainer ." $LDPLOC
+
 
 # Numbers Into Notes Container
 
@@ -31,13 +40,15 @@ to configure the URLPREFIX for the machine running/localhost as needed.
 
 Build the image with NiN site installed and configured:
 
-docker build -t numbersintonotes:$(date +%Y%m%d) .
+export VER=$(date +%Y%m%d)
+
+docker build -t numbersintonotes:$VER .
 
 To start:
 
-docker run -p 8080:80 --mount source=nin-data,target=/data numbersintonotes:XXXXXX
+docker run -p 8080:80 --mount source=nin-data,target=/data numbersintonotes:$VER
 
-Where XXXXXX is the date the built image was tagged with.  The outputs will all be stored in a nin-data directory managed by docker, but persisted between different containers/images.
+The outputs will all be stored in a nin-data directory managed by docker, but persisted between different containers/images.
 
 The actual location of the nin-data directory can be found with:
 
