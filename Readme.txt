@@ -29,7 +29,7 @@ git clone -b thalassa-version https://github.com/davidderoure/NumbersIntoNotes.g
 
 Build the numbersintonotes base image:
 
-docker build -t numbersintonotes-base:1 -f Dockerfile-base .
+docker build -t numbersintonotes-base:2 -f Dockerfile-base .
 
 Edit the configuration files at:
 
