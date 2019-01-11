@@ -1,6 +1,8 @@
 
 # Use phusion/baseimage as starting point.
-FROM phusion/baseimage:0.10.1
+#FROM phusion/baseimage:0.10.2
+# currently need master to ensure new enough go toolchain
+FROM phusion/baseimage:master
 
 # Use baseimage-docker's init system.
 CMD ["/sbin/my_init"]

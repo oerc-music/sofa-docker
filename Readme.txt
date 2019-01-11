@@ -2,9 +2,11 @@
 # GOLD LDP Container
 
 cd LDP-container
-docker build -t gold:$(date -I) .
 
-export VER=$(date -I)
+#export VER=$(date -I)
+export VER=$(date +%Y-%m-%d)
+
+docker build -t gold:$VER .
 
 To start up:
 
@@ -54,4 +56,15 @@ The actual location of the nin-data directory can be found with:
 
 docker volume inspect nin-data
 
+# Remixer Front End
+
+The remixer front end can also be run in Docker using the included Dockerfile.
+
+In nin-remixer-public Build with:
+
+docker build -t nin-remixer .
+
+Run with:
+
+docker run -p 4000:4000 -it nin-remixer
 
