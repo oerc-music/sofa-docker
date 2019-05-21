@@ -6,11 +6,14 @@ VOLUME /solid-db
 
 WORKDIR /home/node/app
 
+# work around https://github.com/solid/node-solid-server/issues/1189
+RUN npm install "express-handlebars@3.0.2"
+
 RUN npm install solid-server
 
 COPY config.json ./
 
-#WORKDIR solid-certs
+WORKDIR solid-certs
 
 #COPY openssl-localhost.conf ./
 
@@ -18,9 +21,9 @@ COPY config.json ./
 #      -newkey rsa:2048 -nodes -sha256 \
 #      -subj '/CN=localhost' -extensions EXT -config ./openssl-localhost.conf
 
-#WORKDIR ..
-
 COPY solid-certs ./
 
-CMD ["solid", "start"]
+WORKDIR ..
+
+CMD ["npx", "solid", "start"]
 

@@ -1,23 +1,33 @@
+# SoLiD LDP container
 
-# GOLD LDP Container
+cd SoLiD
 
-cd LDP-container
+edit config.js to get correct serverUri and name
 
-#export VER=$(date -I)
-export VER=$(date +%Y-%m-%d)
+mkdir  solid-certs
 
-docker build -t gold:$VER .
+Put SSL key and certificate in solid-certs/ as server.key and server.crt.  If needed a self-signed localhost cert can be created with:
 
-To start up:
+openssl req -x509 -out server.crt -keyout server.key -newkey rsa:2048 -nodes -sha256  -subj '/CN=localhost' -extensions EXT -config ./openssl-localhost.conf
 
-docker run -p 8000:8000 --mount source=gold-data,target=/gold-data gold:$VER
+Build the container with:
 
-Test GOLD (also without a POST it doesn't seem to setup storage)
+docker build -t solid .
 
-export LDPLOC=http://HOSTNAME:8000/
+Run in with webid enabled:
+
+docker run -p 4443:4443 --mount source=solid-data,target=/solid-data --mount source=solid-db,target=/solid-db solid  npx solid start --webid
+
+Go to https://SERVERNAME:4443 and register a test user.  This will setup a directory structure including a public directory.  Stop the previous
+container and restart with default (non-webid) config:
+
+docker run -p 4443:4443 --mount source=solid-data,target=/solid-data --mount source=solid-db,target=/solid-db solid 
+
+To check that it's writable:
+
+export LDPLOC=https://HOSTNAME:4443/public
 
 curl -i -X POST -H "Content-Type: text/turtle" -H 'Link: <http://www.w3.org/ns/ldp#BasicContainer>; rel="type"' --data-raw "@prefix ldp: <http://www.w3.org/ns/ldp#> . <> a ldp:Container, ldp:BasicContainer ." $LDPLOC
-
 
 # Numbers Into Notes Container
 
@@ -71,4 +81,25 @@ docker build -t nin-remixer .
 Run with:
 
 docker run -p 4000:4000 -it nin-remixer
+
+# GOLD LDP Container (OLD)
+
+[Now prefer Solid for the LDP container rather than GOLD]
+
+cd LDP-container
+
+#export VER=$(date -I)
+export VER=$(date +%Y-%m-%d)
+
+docker build -t gold:$VER .
+
+To start up:
+
+docker run -p 8000:8000 --mount source=gold-data,target=/gold-data gold:$VER
+
+Test GOLD (also without a POST it doesn't seem to setup storage)
+
+export LDPLOC=http://HOSTNAME:8000/
+
+curl -i -X POST -H "Content-Type: text/turtle" -H 'Link: <http://www.w3.org/ns/ldp#BasicContainer>; rel="type"' --data-raw "@prefix ldp: <http://www.w3.org/ns/ldp#> . <> a ldp:Container, ldp:BasicContainer ." $LDPLOC
 
