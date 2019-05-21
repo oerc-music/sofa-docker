@@ -1,4 +1,4 @@
 #!/bin/sh
-# Start apache in foreground
+# Start gold in foreground
 export GOPATH=/go
 exec $GOPATH/bin/server -conf=/app/gold.conf
