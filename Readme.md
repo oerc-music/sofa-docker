@@ -52,9 +52,13 @@ docker run -p 8080:80 --mount source=nin-data,target=/data numbersintonotes:$VER
 
 The outputs will all be stored in a nin-data directory managed by docker, but persisted between different containers/images.
 
-The actual location of the nin-data directory can be found with:
+The actual location of the nin-data directory can be found in:
 
 docker volume inspect nin-data
+
+specifically:
+
+docker volume inspect --format '{{ .Mountpoint }}' nin-data
 
 # Remixer Front End
 
