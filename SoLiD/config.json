@@ -1,0 +1,18 @@
+{
+  "root": "/solid-data",
+  "port": "8443",
+  "serverUri": "https://localhost:8443",
+  "webid": false,
+  "mount": "/",
+  "configPath": "./config",
+  "configFile": "./config.json",
+  "dbPath": "/solid-db",
+  "sslKey": "./solid-certs/server.key",
+  "sslCert": "./solid-certs/server.crt",
+  "multiuser": false,
+  "server": {
+    "name": "localhost",
+    "description": "",
+    "logo": ""
+  }
+}
