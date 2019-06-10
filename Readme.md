@@ -35,9 +35,9 @@ Assumes the NiN codebase is checked out at numbers-into-notes/nin-thalassa-repo
 
 cd numbers-into-notes
 
-Clone the thalassa-version branch of NiN:
+Clone the development repository for NiN from oerc-music:
 
-git clone -b thalassa-version https://github.com/davidderoure/NumbersIntoNotes.git nin-thalassa-repo
+git clone https://github.com/oerc-music/NumbersIntoNotes.git nin-thalassa-repo
 
 Build the numbersintonotes base image:
 
@@ -69,6 +69,11 @@ docker volume inspect nin-data
 specifically:
 
 docker volume inspect --format '{{ .Mountpoint }}' nin-data
+
+## Auto-generating fragments
+
+There is documentation on auto-generating random fragments at nin-thalassa-repo/GenerateMEIAndMELD.md
+(with container running, also accessible at http://localhost:8080/GenerateMEIAndMELD.md).
 
 # Remixer Front End
 
