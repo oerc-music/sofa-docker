@@ -41,7 +41,7 @@ git clone https://github.com/oerc-music/NumbersIntoNotes.git nin-thalassa-repo
 
 Build the numbersintonotes base image:
 
-docker build -t numbersintonotes-base:2 -f Dockerfile-base .
+docker build -t numbersintonotes-base:3 -f Dockerfile-base .
 
 Edit the configuration files at:
 

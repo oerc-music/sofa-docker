@@ -1,6 +1,6 @@
 
 # Base Ubuntu 16.04 image with dependencies installed
-FROM numbersintonotes-base:2
+FROM numbersintonotes-base:3
 
 VOLUME /data
 RUN rm /var/www/html/index.html
